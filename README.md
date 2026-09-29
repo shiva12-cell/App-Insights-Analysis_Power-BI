@@ -1,12 +1,5 @@
 # 📱 Google Play Store App Insights — Power BI Analytics Project
 
-![Power BI](https://img.shields.io/badge/Power_BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)
-![DAX](https://img.shields.io/badge/DAX-Data_Analysis_Expressions-blue?style=for-the-badge)
-![Power Query](https://img.shields.io/badge/Power_Query-ETL-green?style=for-the-badge)
-![Status](https://img.shields.io/badge/Project_Status-Completed-success?style=for-the-badge)
-
----
-
 ## 📌 Executive Summary
 
 This repository contains an end-to-end business intelligence solution built in **Microsoft Power BI Desktop** analyzing **10,800+ mobile applications** and **64,000+ user reviews** from the Google Play Store.
