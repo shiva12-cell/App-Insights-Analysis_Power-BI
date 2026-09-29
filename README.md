@@ -23,7 +23,7 @@ The goal of this project is to uncover actionable market trends, app monetizatio
 
 ## 📊 Dashboard Architecture (3 Interactive Pages)
 
-The interactive report is packaged in [`Report..pbix`](./Report..pbix) and structured across three dedicated analytical views:
+The interactive report is packaged in [`Report..pbix`](https://github.com/shiva12-cell/App-Insights-Analysis_Power-BI/blob/main/Report/Report..pdf) and structured across three dedicated analytical views:
 
 ### 1. Executive Overview Dashboard
 * **Top KPI Banner**: Total Apps (`9.64K`), Average Rating (`4.17`), `% Apps Rated 4+` (`65.2%`), Total Installs (`75.3B`).
