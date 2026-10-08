@@ -21,7 +21,7 @@ The goal of this project is to uncover actionable market trends, app monetizatio
 
 ---
 
-##  Dashboard Architecture (3 Interactive Pages)
+##  Dashboard Architecture (3 Interactive Pages Overview)
 
 The interactive report is packaged in [`Report..pbix`](https://github.com/shiva12-cell/App-Insights-Analysis_Power-BI/blob/main/Report/Report..pdf) and structured across three dedicated analytical views:
 
@@ -48,70 +48,6 @@ The interactive report is packaged in [`Report..pbix`](https://github.com/shiva1
 * **Sentiment Distribution (Donut Chart)**: Positive, Negative, and Neutral review breakdown.
 * **Interactive Reviews Explorer (Table)**: Searchable user feedback matrix that dynamically filters comments when clicking sentiment slices or app categories.
 
----
-
-##  Data Pipeline & Modeling
-
-### Data Cleaning (Power Query / ETL)
-1. **Anomaly Correction**: Identified and handled corrupted row (Row 10472 where columns shifted, rating was 19, and category was missing).
-2. **Deduplication**: Removed duplicate application entries while retaining the record with the highest review count.
-3. **Data Type Normalization**:
-   * `Installs`: Removed `+` and `,` symbols; converted to `Int64`.
-   * `Price`: Stripped currency `$` signs; converted to `Decimal`.
-   * `Size`: Standardized all strings (`M`, `k`) to uniform Megabytes (`Size_MB`).
-   * `Rating`: Replaced text `"NaN"` values with true `null` to enable numeric aggregation.
-   * `Last Updated`: Formatted to standard date format (`YYYY-MM-DD`).
-4. **Sentiment Processing**: Purged null/nan reviews from the user feedback dataset, leaving 37,427 clean qualitative records with numeric polarity and subjectivity scores.
-
-### Star Schema & Relationships
-* **`googleplaystore_cleaned`** (1 - Primary Dimension/Fact table)
-* **`googleplaystore_user_reviews_cleaned`** (* - Fact table)
-* **Relationship**: **Many-to-One (*:1)** from Reviews to Apps with **Single** cross-filter direction.
-* **Dedicated Measures Table**: `_Measures` containing all scalar calculations and KPIs.
-
----
-
-##  Key DAX Measures Library
-
-```dax
-// Average Rating
-Average Rating = AVERAGE('googleplaystore_cleaned'[Rating])
-
-// Total Installs
-Total Install = SUM('googleplaystore_cleaned'[Installs])
-
-// Free vs Paid App Counts
-Free Apps Count = CALCULATE(COUNTROWS('googleplaystore_cleaned'), 'googleplaystore_cleaned'[Type] = "Free")
-Paid Apps Count = CALCULATE(COUNTROWS('googleplaystore_cleaned'), 'googleplaystore_cleaned'[Type] = "Paid")
-% Free Apps = DIVIDE([Free Apps Count], [Total Apps], 0)
-
-// Quality Benchmark (Rating >= 4.0)
-Apps Rated 4 Plus = CALCULATE(COUNTROWS('googleplaystore_cleaned'), 'googleplaystore_cleaned'[Rating] >= 4.0)
-% Apps Rated 4 Plus = DIVIDE([Apps Rated 4 Plus], [Total Apps], 0)
-
-// Pearson Correlation: Installs vs Rating
-Correlation Installs vs Rating = 
-VAR ValidApps = FILTER('googleplaystore_cleaned', NOT(ISBLANK('googleplaystore_cleaned'[Rating])) && NOT(ISBLANK('googleplaystore_cleaned'[Installs])))
-VAR AppCount = COUNTROWS(ValidApps)
-VAR TotalX = SUMX(ValidApps, 1.0 * 'googleplaystore_cleaned'[Installs])
-VAR TotalY = SUMX(ValidApps, 1.0 * 'googleplaystore_cleaned'[Rating])
-VAR TotalXY = SUMX(ValidApps, 1.0 * 'googleplaystore_cleaned'[Installs] * 'googleplaystore_cleaned'[Rating])
-VAR TotalX2 = SUMX(ValidApps, 1.0 * ('googleplaystore_cleaned'[Installs] ^ 2))
-VAR TotalY2 = SUMX(ValidApps, 1.0 * ('googleplaystore_cleaned'[Rating] ^ 2))
-VAR Numerator = (AppCount * TotalXY) - (TotalX * TotalY)
-VAR Denominator = SQRT(((AppCount * TotalX2) - (TotalX ^ 2)) * ((AppCount * TotalY2) - (TotalY ^ 2)))
-RETURN
-DIVIDE(Numerator, Denominator, 0)
-
-// Sentiment Breakdown
-Total User Reviews = COUNTROWS('googleplaystore_user_reviews_cleaned')
-Positive Reviews Count = CALCULATE(COUNTROWS('googleplaystore_user_reviews_cleaned'), 'googleplaystore_user_reviews_cleaned'[Sentiment] = "Positive")
-% Positive Sentiment = DIVIDE([Positive Reviews Count], [Total User Reviews], 0)
-
-// Median Rating
-Median Rating = MEDIAN('googleplaystore_cleaned'[Rating])
-```
-
 
 ---
 
@@ -122,10 +58,3 @@ Median Rating = MEDIAN('googleplaystore_cleaned'[Rating])
 3. **Target File Size by Vertical**: Keep utility and productivity tools under **15 MB** to maximize global install conversions, especially in bandwidth-constrained regions. Gaming titles can expand up to **75–100 MB** provided visual quality justifies the download.
 4. **Maintain Continuous Release Cycles**: Over 83% of top-performing apps pushed version updates within the prior 12 months. Routine maintenance directly defends app store search ranking and ratings.
 
----
-
-## 👤 Author & Acknowledgments
-
-* **Data Analyst**: Shiva Upadhyay
-* **Tools Used**: Microsoft Power BI Desktop, DAX, Power Query M
-* **Dataset Source**: Google Play Store (Kaggle)
