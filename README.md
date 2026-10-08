@@ -1,6 +1,6 @@
-# 📱 Google Play Store App Insights — Power BI Analytics Project
+#  Google Play Store App Insights — Power BI Analytics Project
 
-## 📌 Executive Summary
+##  Executive Summary
 
 This repository contains an end-to-end business intelligence solution built in **Microsoft Power BI Desktop** analyzing **10,800+ mobile applications** and **64,000+ user reviews** from the Google Play Store.
 
@@ -8,7 +8,7 @@ The goal of this project is to uncover actionable market trends, app monetizatio
 
 ---
 
-## 🚀 Key Business Findings & KPIs
+##  Key Business Findings & KPIs
 
 * **Market Scale**: **9,638 unique applications** analyzed, accounting for **75.3 Billion total installs**.
 * **Quality Benchmark**: Overall store average rating is **4.17 / 5.0**, with **65.16%** of all apps maintaining a rating of **4.0 or higher** (76.8% of rated apps).
@@ -21,7 +21,7 @@ The goal of this project is to uncover actionable market trends, app monetizatio
 
 ---
 
-## 📊 Dashboard Architecture (3 Interactive Pages)
+##  Dashboard Architecture (3 Interactive Pages)
 
 The interactive report is packaged in [`Report..pbix`](https://github.com/shiva12-cell/App-Insights-Analysis_Power-BI/blob/main/Report/Report..pdf) and structured across three dedicated analytical views:
 
@@ -50,7 +50,7 @@ The interactive report is packaged in [`Report..pbix`](https://github.com/shiva1
 
 ---
 
-## 🛠️ Data Pipeline & Modeling
+##  Data Pipeline & Modeling
 
 ### Data Cleaning (Power Query / ETL)
 1. **Anomaly Correction**: Identified and handled corrupted row (Row 10472 where columns shifted, rating was 19, and category was missing).
@@ -71,7 +71,7 @@ The interactive report is packaged in [`Report..pbix`](https://github.com/shiva1
 
 ---
 
-## 📐 Key DAX Measures Library
+##  Key DAX Measures Library
 
 ```dax
 // Average Rating
@@ -115,7 +115,7 @@ Median Rating = MEDIAN('googleplaystore_cleaned'[Rating])
 
 ---
 
-## 💡 Strategic Recommendations for App Publishers
+##  Strategic Recommendations for App Publishers
 
 1. **Adopt a Freemium Strategy**: With Free apps capturing over 98% of downloads and driving 26.7x higher review velocity, launching free with in-app purchases or subscriptions is the proven path to market dominance.
 2. **Optimize Pricing Tiers**: If releasing a paid product, price between **$0.99 and $4.99**. This range maintains the highest customer satisfaction score (4.27) while minimizing buyer friction.
