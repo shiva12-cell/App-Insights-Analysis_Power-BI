@@ -20,7 +20,23 @@ The goal of this project is to uncover actionable market trends, app monetizatio
 * **Sentiment Intelligence**: Analysis of 37,400+ clean user reviews reveals **64.1% Positive**, **22.1% Negative**, and **13.8% Neutral** sentiment with an average polarity of **+0.18**.
 
 ---
+##  Repository Structure
 
+```
+├── Cleaned_Data/
+│   ├── Executive_Theme.json
+│   ├── googleplaystore_cleaned.csv
+│   └── googleplaystore_user_reviews_cleaned.csv
+├── Raw_Data/
+│   ├── googleplaystore.csv
+│   └── googleplaystore_user_reviews.csv
+├── Report/
+│   ├── Report..pbix  Dashboard File
+│   └── Report..pdf   Dashboard Image
+├── 01_Case_Study_Document.md
+├── 02_Comprehensive_Solution_Guide.md
+└── README.md
+```
 ##  Dashboard Architecture (3 Interactive Pages Overview)
 
 The interactive report is packaged in [`Report..pbix`](https://github.com/shiva12-cell/App-Insights-Analysis_Power-BI/blob/main/Report/Report..pdf) and structured across three dedicated analytical views:
